@@ -15,6 +15,7 @@ def answer_question():
         with zipfile.ZipFile(file.filename, 'r') as zip_ref:
             zip_ref.extractall()
         os.remove(file.filename)
+
         csv_file = [f for f in os.listdir() if f.endswith('.csv')][0]
         df = pd.read_csv(csv_file)
         answer = df['answer'].iloc[0]
@@ -22,7 +23,7 @@ def answer_question():
     else:
         answer = 'No file provided'
 
-    return jsonify({'answer': answer})
+    return jsonify({'answer': str(answer)})
 
 if __name__ == '__main__':
     app.run(debug=True)
